@@ -6,69 +6,54 @@ canvas.height = 576
 
 const collisionsMap = []
 for (let i = 0; i < collisions.length; i += 70) {
-    collisionsMap.push(collisions.slice(i, 70 + i))
-
+  collisionsMap.push(collisions.slice(i, 70 + i))
 }
 
 const battleZonesMap = []
 for (let i = 0; i < battleZonesData.length; i += 70) {
-    battleZonesMap.push(battleZonesData.slice(i, 70 + i))
-
+  battleZonesMap.push(battleZonesData.slice(i, 70 + i))
 }
 
 const charactersMap = []
 for (let i = 0; i < charactersMapData.length; i += 70) {
-    charactersMap.push(charactersMapData.slice(i, 70 + i))
-
+  charactersMap.push(charactersMapData.slice(i, 70 + i))
 }
-
 console.log(charactersMap)
 
 const boundaries = []
 const offset = {
-    x: -735,
-    y: -650
-
+  x: -735,
+  y: -650
 }
 
 collisionsMap.forEach((row, i) => {
-    row.forEach((Symbol, j) => {
-        if (Symbol === 1025)
-            boundaries.push(
-                new Boundary({
-                    position: {
-                        x: j * Boundary.width + offset.x,
-                        y: i * Boundary.height + offset.y 
-
-                    }
-
-                })
-            
-            )
-
-    })
-
+  row.forEach((symbol, j) => {
+    if (symbol === 1025)
+      boundaries.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+  })
 })
 
 const battleZones = []
 
 battleZonesMap.forEach((row, i) => {
-    row.forEach((symbol, j) => {
-        if (symbol === 1025)
-            battleZones.push(
-                new Boundary({
-                    position: {
-                        x: j = Boundary.width + offset.x,
-                        y: i = Boundary.height + offset.y
-
-                }
-
-            })
-
-        )
-
-    })
-
+  row.forEach((symbol, j) => {
+    if (symbol === 1025)
+      battleZones.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+  })
 })
 
 const characters = []
@@ -79,194 +64,158 @@ const oldManImg = new Image()
 oldManImg.src = './img/oldMan/Idle.png'
 
 charactersMap.forEach((row, i) => {
-    row.forEach((symbol, j) => {
-        // 1026 === villager
-        if (symbol === 1026) {
-            characters.push(
-                new character({
-                    position: {
-                        x: j * Boundary.width + offset.x,
-                        y: i * Boundary.height + offset.y
+  row.forEach((symbol, j) => {
+    // 1026 === villager
+    if (symbol === 1026) {
+      characters.push(
+        new Character({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          },
+          image: villagerImg,
+          frames: {
+            max: 4,
+            hold: 60
+          },
+          scale: 3,
+          animate: true,
+          dialogue: ['...', 'Hey mister, have you seen my Doggochu?']
+        })
+      )
+    }
+    // 1031 === oldMan
+    else if (symbol === 1031) {
+      characters.push(
+        new Character({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          },
+          image: oldManImg,
+          frames: {
+            max: 4,
+            hold: 60
+          },
+          scale: 3,
+          dialogue: ['My bones hurt.']
+        })
+      )
+    }
 
-                    },
-
-                    image: villagerImg,
-                    frames: {
-                        max: 4,
-                        hold: 60
-
-                    },
-                    scale: 3,
-                    animate: true,
-                    dialogue: ['...', 'Hey mister, have you seen my Doggochu?']
-
-                })
-
-            )
-
-        }
-        // 1031 === oldMan
-        else if (symbol === 1031) {
-            characters.push(
-                new Character({
-                    position: {
-                        x: j * Boundary.width + offset.x,
-                        y: i * Boundary.height + offset.y
-
-                    },
-                    image: oldManImg,
-                    frames: {
-                        max: 4,
-                        hold: 60
-
-                    },
-                    scale: 3,
-                    dialogue: ['My bones hurt.']
-
-                })
-
-            )
-
-        }
-
-        if (symbol !== 0) {
-            boundaries.push(
-                new Boundary({
-                    position: {
-                        x: j * Boundary.width + offset.x,
-                        y: i * Boundary.height + offset.y
-
-                    }
-
-                })
-
-            )
-
-        }
-
-    })
-
+    if (symbol !== 0) {
+      boundaries.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+          }
+        })
+      )
+    }
+  })
 })
 
-const image= new Image()
+const image = new Image()
 image.src = './img/Pellet Town.png'
 
 const foregroundImage = new Image()
 foregroundImage.src = './img/foregroundObjects.png'
 
-const playerDownImage = new Image ()
+const playerDownImage = new Image()
 playerDownImage.src = './img/playerDown.png'
 
-const playerUpImage = new Image ()
+const playerUpImage = new Image()
 playerUpImage.src = './img/playerUp.png'
 
-const playerLeftImage = new Image ()
-playerLeftImage.src = './ing/playerLeft.png'
+const playerLeftImage = new Image()
+playerLeftImage.src = './img/playerLeft.png'
 
-const playerRightImage = new Image ()
+const playerRightImage = new Image()
 playerRightImage.src = './img/playerRight.png'
 
 const player = new Sprite({
-    position: {
-        x: canvas.width / 2 - 192 / 4 / 2,
-        y: canvas.height /2 - 68 / 2
-
-    },
-
-    image: playerDownImage,
-    frames: {
-        max: 4,
-        hold: 10
-
-    },
-
-    sprites: {
-        up: playerUpImage,
-        left: playerLeftImage,
-        right: playerRightImage,
-        down: playerDownImage
-
-    }
-
+  position: {
+    x: canvas.width / 2 - 192 / 4 / 2,
+    y: canvas.height / 2 - 68 / 2
+  },
+  image: playerDownImage,
+  frames: {
+    max: 4,
+    hold: 10
+  },
+  sprites: {
+    up: playerUpImage,
+    left: playerLeftImage,
+    right: playerRightImage,
+    down: playerDownImage
+  }
 })
 
 const background = new Sprite({
-    position: {
-        x: offset.x,
-        y: offset.y
-
-    },
-    image: image
+  position: {
+    x: offset.x,
+    y: offset.y
+  },
+  image: image
 })
 
 const foreground = new Sprite({
-    position: {
+  position: {
     x: offset.x,
     y: offset.y
-
-    },
-    image: foregroundImage
-
+  },
+  image: foregroundImage
 })
 
 const keys = {
-    w: {
-        pressed: false
-    },
-
-    a: {
-        pessed:false
-    },
-
-    s: {
-        pressed:false
-    },
-
-    d: {
-        pressed: false
-    }
-
+  w: {
+    pressed: false
+  },
+  a: {
+    pressed: false
+  },
+  s: {
+    pressed: false
+  },
+  d: {
+    pressed: false
+  }
 }
 
 const movables = [
-    background,
-    ...boundaries,
-    foreground,
-    ...battleZones,
-    ...characters
-
+  background,
+  ...boundaries,
+  foreground,
+  ...battleZones,
+  ...characters
 ]
-
 const renderables = [
-    background,
-    ...boundaries,
-    ...battleZones,
-    ...characters,
-    player,
-    foreground
-
+  background,
+  ...boundaries,
+  ...battleZones,
+  ...characters,
+  player,
+  foreground
 ]
 
-const battle ={
-    initiated: false
-
+const battle = {
+  initiated: false
 }
 
 function animate() {
-    const animationId = window.requestAnimationFrame(animate)
-    renderables.forEach((renderable) => {
-        renderable.draw()
+  const animationId = window.requestAnimationFrame(animate)
+  renderables.forEach((renderable) => {
+    renderable.draw()
+  })
 
-    })
+  let moving = true
+  player.animate = false
 
-    let moving = true
-    player.animate = false
+  if (battle.initiated) return
 
-    if (battle.initiated) return
-
-    //activate a battleeeee
-
-    if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+  // activate a battle
+  if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
     for (let i = 0; i < battleZones.length; i++) {
       const battleZone = battleZones[i]
       const overlappingArea =
@@ -348,15 +297,12 @@ function animate() {
       ) {
         moving = false
         break
-
       }
-
     }
 
     if (moving)
       movables.forEach((movable) => {
         movable.position.y += 3
-
       })
   } else if (keys.a.pressed && lastKey === 'a') {
     player.animate = true
@@ -366,7 +312,6 @@ function animate() {
       characters,
       player,
       characterOffset: { x: 3, y: 0 }
-
     })
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -379,27 +324,19 @@ function animate() {
             position: {
               x: boundary.position.x + 3,
               y: boundary.position.y
-
             }
-
           }
-
         })
-
       ) {
         moving = false
         break
-
       }
-
     }
 
     if (moving)
       movables.forEach((movable) => {
         movable.position.x += 3
-
       })
-
   } else if (keys.s.pressed && lastKey === 's') {
     player.animate = true
     player.image = player.sprites.down
@@ -408,7 +345,6 @@ function animate() {
       characters,
       player,
       characterOffset: { x: 0, y: -3 }
-
     })
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -422,18 +358,12 @@ function animate() {
               x: boundary.position.x,
               y: boundary.position.y - 3
             }
-
           }
-
         })
-
       ) {
-
         moving = false
         break
-
       }
-
     }
 
     if (moving)
@@ -448,7 +378,6 @@ function animate() {
       characters,
       player,
       characterOffset: { x: -3, y: 0 }
-
     })
 
     for (let i = 0; i < boundaries.length; i++) {
@@ -461,31 +390,21 @@ function animate() {
             position: {
               x: boundary.position.x - 3,
               y: boundary.position.y
-
             }
-
           }
-
         })
-
       ) {
         moving = false
         break
-
       }
-
     }
 
     if (moving)
       movables.forEach((movable) => {
         movable.position.x -= 3
-
       })
-
   }
-
 }
-
 // animate()
 
 let lastKey = ''
@@ -500,7 +419,6 @@ window.addEventListener('keydown', (e) => {
           document.querySelector('#characterDialogueBox').innerHTML =
             player.interactionAsset.dialogue[dialogueIndex]
           return
-
         }
 
         // finish conversation
@@ -509,10 +427,8 @@ window.addEventListener('keydown', (e) => {
         document.querySelector('#characterDialogueBox').style.display = 'none'
 
         break
-
     }
     return
-
   }
 
   switch (e.key) {
@@ -543,9 +459,7 @@ window.addEventListener('keydown', (e) => {
       keys.d.pressed = true
       lastKey = 'd'
       break
-
   }
-
 })
 
 window.addEventListener('keyup', (e) => {
@@ -562,9 +476,7 @@ window.addEventListener('keyup', (e) => {
     case 'd':
       keys.d.pressed = false
       break
-
   }
-
 })
 
 let clicked = false
@@ -572,7 +484,5 @@ addEventListener('click', () => {
   if (!clicked) {
     audio.Map.play()
     clicked = true
-
   }
-
 })

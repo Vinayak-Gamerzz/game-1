@@ -8,7 +8,6 @@ class Sprite {
     animate = false,
     rotation = 0,
     scale = 1
-
   }) {
     this.position = position
     this.image = new Image()
@@ -16,7 +15,6 @@ class Sprite {
     this.image.onload = () => {
       this.width = (this.image.width / this.frames.max) * scale
       this.height = this.image.height * scale
-
     }
     this.image.src = image.src
 
@@ -26,7 +24,6 @@ class Sprite {
 
     this.rotation = rotation
     this.scale = scale
-
   }
 
   draw() {
@@ -34,13 +31,11 @@ class Sprite {
     c.translate(
       this.position.x + this.width / 2,
       this.position.y + this.height / 2
-
     )
     c.rotate(this.rotation)
     c.translate(
       -this.position.x - this.width / 2,
       -this.position.y - this.height / 2
-
     )
     c.globalAlpha = this.opacity
 
@@ -48,22 +43,18 @@ class Sprite {
       position: {
         x: this.frames.val * (this.width / this.scale),
         y: 0
-
       },
       width: this.image.width / this.frames.max,
       height: this.image.height
-
     }
 
     const image = {
       position: {
         x: this.position.x,
         y: this.position.y
-
       },
       width: this.image.width / this.frames.max,
       height: this.image.height
-
     }
 
     c.drawImage(
@@ -76,7 +67,6 @@ class Sprite {
       image.position.y,
       image.width * this.scale,
       image.height * this.scale
-
     )
 
     c.restore()
@@ -85,17 +75,13 @@ class Sprite {
 
     if (this.frames.max > 1) {
       this.frames.elapsed++
-
     }
 
     if (this.frames.elapsed % this.frames.hold === 0) {
       if (this.frames.val < this.frames.max - 1) this.frames.val++
       else this.frames.val = 0
-
     }
-
   }
-
 }
 
 class Monster extends Sprite {
@@ -110,7 +96,6 @@ class Monster extends Sprite {
     isEnemy = false,
     name,
     attacks
-
   }) {
     super({
       position,
@@ -120,28 +105,23 @@ class Monster extends Sprite {
       sprites,
       animate,
       rotation
-
     })
     this.health = 100
     this.isEnemy = isEnemy
     this.name = name
     this.attacks = attacks
-
   }
 
   faint() {
     document.querySelector('#dialogueBox').innerHTML = this.name + ' fainted!'
     gsap.to(this.position, {
       y: this.position.y + 20
-
     })
     gsap.to(this, {
       opacity: 0
-
     })
     audio.battle.stop()
     audio.victory.play()
-
   }
 
   attack({ attack, recipient, renderedSprites }) {
@@ -157,6 +137,8 @@ class Monster extends Sprite {
 
     recipient.health -= attack.damage
 
+    recipient.health = Math.max(0, recipient.health)
+
     switch (attack.name) {
       case 'Fireball':
         audio.initFireball.play()
@@ -166,17 +148,14 @@ class Monster extends Sprite {
           position: {
             x: this.position.x,
             y: this.position.y
-
           },
           image: fireballImage,
           frames: {
             max: 4,
             hold: 10
-
           },
           animate: true,
           rotation
-
         })
         renderedSprites.splice(1, 0, fireball)
 
@@ -184,19 +163,25 @@ class Monster extends Sprite {
           x: recipient.position.x,
           y: recipient.position.y,
           onComplete: () => {
-        
+            // Enemy actually gets hit
             audio.fireballHit.play()
             gsap.to(healthBar, {
               width: recipient.health + '%'
-
             })
+
+          if (recipient.isEnemy) {
+            document.querySelector("#enemyHPText").innerHTML =
+              `${recipient.health}/100 HP`
+          } else {
+            document.querySelector("#playerHPText").innerHTML =
+              `${recipient.health}/100 HP`
+          }
 
             gsap.to(recipient.position, {
               x: recipient.position.x + 10,
               yoyo: true,
               repeat: 5,
               duration: 0.08
-
             })
 
             gsap.to(recipient, {
@@ -204,12 +189,9 @@ class Monster extends Sprite {
               repeat: 5,
               yoyo: true,
               duration: 0.08
-
             })
             renderedSprites.splice(1, 1)
-
           }
-
         })
 
         break
@@ -221,26 +203,30 @@ class Monster extends Sprite {
 
         tl.to(this.position, {
           x: this.position.x - movementDistance
-
         })
-
           .to(this.position, {
             x: this.position.x + movementDistance * 2,
             duration: 0.1,
             onComplete: () => {
-            
+              // Enemy actually gets hit
               audio.tackleHit.play()
               gsap.to(healthBar, {
                 width: recipient.health + '%'
-
               })
+
+              if (recipient.isEnemy) {
+                document.querySelector("#enemyHPText").innerHTML =
+                  `${recipient.health}/100 HP`
+              } else {
+                document.querySelector("#playerHPText").innerHTML =
+                  `${recipient.health}/100 HP`
+              }
 
               gsap.to(recipient.position, {
                 x: recipient.position.x + 10,
                 yoyo: true,
                 repeat: 5,
                 duration: 0.08
-
               })
 
               gsap.to(recipient, {
@@ -248,24 +234,15 @@ class Monster extends Sprite {
                 repeat: 5,
                 yoyo: true,
                 duration: 0.08
-
               })
-
             }
-
           })
-
           .to(this.position, {
             x: this.position.x
-
           })
-
         break
-
     }
-
   }
-
 }
 
 class Boundary {
@@ -275,15 +252,12 @@ class Boundary {
     this.position = position
     this.width = 48
     this.height = 48
-
   }
 
   draw() {
     c.fillStyle = 'rgba(255, 0, 0, 0)'
     c.fillRect(this.position.x, this.position.y, this.width, this.height)
-
   }
-
 }
 
 class Character extends Sprite {
@@ -297,9 +271,7 @@ class Character extends Sprite {
     rotation = 0,
     scale = 1,
     dialogue = ['']
-
   }) {
-    
     super({
       position,
       velocity,
@@ -309,12 +281,9 @@ class Character extends Sprite {
       animate,
       rotation,
       scale
-
     })
 
     this.dialogue = dialogue
     this.dialogueIndex = 0
-
   }
-
 }

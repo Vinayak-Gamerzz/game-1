@@ -4,10 +4,8 @@ const battleBackground = new Sprite({
   position: {
     x: 0,
     y: 0
-
   },
   image: battleBackgroundImage
-
 })
 
 let draggle
@@ -25,6 +23,10 @@ function initBattle() {
 
   draggle = new Monster(monsters.Draggle)
   emby = new Monster(monsters.Emby)
+
+  document.querySelector("#enemyHPText").innerHTML = `${draggle.health}/100 HP`
+  document.querySelector("#playerHPText").innerHTML = `${emby.health}/100 HP`
+
   renderedSprites = [draggle, emby]
   queue = []
 
@@ -32,7 +34,6 @@ function initBattle() {
     const button = document.createElement('button')
     button.innerHTML = attack.name
     document.querySelector('#attacksBox').append(button)
-
   })
 
   // our event listeners for our buttons (attack)
@@ -43,15 +44,12 @@ function initBattle() {
         attack: selectedAttack,
         recipient: draggle,
         renderedSprites
-
       })
 
       if (draggle.health <= 0) {
         queue.push(() => {
           draggle.faint()
-
         })
-
         queue.push(() => {
           // fade back to black
           gsap.to('#overlappingDiv', {
@@ -63,18 +61,13 @@ function initBattle() {
 
               gsap.to('#overlappingDiv', {
                 opacity: 0
-
               })
 
               battle.initiated = false
               audio.Map.play()
-
             }
-
           })
-
         })
-
       }
 
       // draggle or enemy attacks right here
@@ -86,13 +79,11 @@ function initBattle() {
           attack: randomAttack,
           recipient: emby,
           renderedSprites
-
         })
 
         if (emby.health <= 0) {
           queue.push(() => {
             emby.faint()
-
           })
 
           queue.push(() => {
@@ -106,33 +97,23 @@ function initBattle() {
 
                 gsap.to('#overlappingDiv', {
                   opacity: 0
-
                 })
 
                 battle.initiated = false
                 audio.Map.play()
-
               }
-
             })
-
           })
-
         }
-
       })
-
     })
 
     button.addEventListener('mouseenter', (e) => {
       const selectedAttack = attacks[e.currentTarget.innerHTML]
       document.querySelector('#attackType').innerHTML = selectedAttack.type
       document.querySelector('#attackType').style.color = selectedAttack.color
-
     })
-
   })
-
 }
 
 function animateBattle() {
@@ -143,9 +124,7 @@ function animateBattle() {
 
   renderedSprites.forEach((sprite) => {
     sprite.draw()
-
   })
-
 }
 
 animate()
@@ -156,7 +135,5 @@ document.querySelector('#dialogueBox').addEventListener('click', (e) => {
   if (queue.length > 0) {
     queue[0]()
     queue.shift()
-    
   } else e.currentTarget.style.display = 'none'
-
 })
