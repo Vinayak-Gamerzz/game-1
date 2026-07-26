@@ -107,6 +107,10 @@ class Monster extends Sprite {
       rotation
     })
     this.health = 100
+    this.maxHealth = 100
+    this.level = 1
+    this.exp = 0
+    this.attackBonus = 0
     this.isEnemy = isEnemy
     this.name = name
     this.attacks = attacks
@@ -124,6 +128,55 @@ class Monster extends Sprite {
     audio.victory.play()
   }
 
+  gainExp(amount) {
+    this.exp += amount
+
+    if (this.exp >= 100) {
+      this.exp = 0
+      this.level++
+      this.maxHealth += 20
+      this.health = this.maxHealth
+      this.attackBonus += 5
+
+      document.querySelector("#dialougeBox").innerHTML =
+        '$(this.name reached Level $(this.level)!'
+
+    }
+
+  }
+
+  showDamage(damage, recipient) {
+    const damageText = document.createElement("div");
+
+  damageText.innerHTML = "-" + damage;
+
+  damageText.style.position = "absolute";
+  damageText.style.left = recipient.position.x + "px";
+  damageText.style.top = recipient.position.y + "px";
+  if (damage >= 50) {
+    damageText.style.color = "orange"
+  } else {
+    damageText.style.color = "red"
+  }
+  damageText.style.fontSize = "22px";
+  damageText.style.fontWeight = "bold";
+  damageText.style.pointerEvents = "none";
+
+  document.querySelector("#damageContainer").appendChild(damageText);
+
+    gsap.to(damageText, {
+      y: -40,
+      opactiy: 0,
+      diration: 0.8,
+      onComplete() {
+        damageText.remove();
+
+      }
+
+  });
+
+}
+
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector('#dialogueBox').style.display = 'block'
     document.querySelector('#dialogueBox').innerHTML =
@@ -135,13 +188,41 @@ class Monster extends Sprite {
     let rotation = 1
     if (this.isEnemy) rotation = -2.2
 
-    recipient.health -= attack.damage
+    const critical = Math.random() < 0.2 // 20% chance
+
+      let damage = attack.damage + this.attackBonus
+
+      if (critical) {
+        damage *= 2
+
+        document.querySelector("#dialogueBox").innerHTML =
+          `${this.name} used ${attack.name}! 🔥 CRITICAL HIT!`
+      }
+
+      recipient.health -= damage
 
     recipient.health = Math.max(0, recipient.health)
+
+    function updateHealthBar() {
+      const bar  = document.querySelector(
+        recipient.isEnemy ? "#enemyHealthBar" : "#playerHealthBar"
+
+      )
+
+      if (recipient.health > 60) {
+        bar.style.backgroundColor = "limegreen"
+      } else if (recipient.health > 30) {
+        bar.style.backgroundColor = "gold"
+      } else {
+        bar.style.backgroundColor = "red"
+      }
+
+    }
 
     switch (attack.name) {
       case 'Fireball':
         audio.initFireball.play()
+        this.showDamage(damage, recipient)
         const fireballImage = new Image()
         fireballImage.src = './img/fireball.png'
         const fireball = new Sprite({
@@ -165,9 +246,12 @@ class Monster extends Sprite {
           onComplete: () => {
             // Enemy actually gets hit
             audio.fireballHit.play()
+            this.showDamage(damage, recipient)
             gsap.to(healthBar, {
               width: recipient.health + '%'
             })
+
+            updateHealthBar()
 
           if (recipient.isEnemy) {
             document.querySelector("#enemyHPText").innerHTML =
@@ -213,6 +297,8 @@ class Monster extends Sprite {
               gsap.to(healthBar, {
                 width: recipient.health + '%'
               })
+
+              updateHealthBar()
 
               if (recipient.isEnemy) {
                 document.querySelector("#enemyHPText").innerHTML =

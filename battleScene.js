@@ -24,8 +24,12 @@ function initBattle() {
   draggle = new Monster(monsters.Draggle)
   emby = new Monster(monsters.Emby)
 
-  document.querySelector("#enemyHPText").innerHTML = `${draggle.health}/100 HP`
-  document.querySelector("#playerHPText").innerHTML = `${emby.health}/100 HP`
+  document.querySelector("#enemyHPText").innerHTML =
+    `${draggle.health}/${draggle.maxHealth} HP`
+  document.querySelector("#playerHPText").innerHTML =
+    `${emby.health}/${emby.maxHealth} HP`
+  document.querySelector('#enemyHealthBar').style.backgroundColor = 'limegreen'
+  document.querySelector('#playerHealthBar').style.backgroundColor = 'limegreen'
 
   renderedSprites = [draggle, emby]
   queue = []
@@ -49,6 +53,7 @@ function initBattle() {
       if (draggle.health <= 0) {
         queue.push(() => {
           draggle.faint()
+          emby.gainExp(50)
         })
         queue.push(() => {
           // fade back to black
