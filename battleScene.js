@@ -24,10 +24,8 @@ function initBattle() {
   draggle = new Monster(monsters.Draggle)
   emby = new Monster(monsters.Emby)
 
-  document.querySelector("#enemyHPText").innerHTML =
-    `${draggle.health}/${draggle.maxHealth} HP`
-  document.querySelector("#playerHPText").innerHTML =
-    `${emby.health}/${emby.maxHealth} HP`
+  document.querySelector("#enemyHPText").innerHTML = `${draggle.health}/100 HP`
+  document.querySelector("#playerHPText").innerHTML = `${emby.health}/100 HP`
   document.querySelector('#enemyHealthBar').style.backgroundColor = 'limegreen'
   document.querySelector('#playerHealthBar').style.backgroundColor = 'limegreen'
 
