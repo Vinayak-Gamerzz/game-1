@@ -23,16 +23,6 @@ second pokemon spot
 <img width="1817" height="838" alt="image" src="https://github.com/user-attachments/assets/45c581c7-943e-44cc-96ce-6d34445026c8" />
 spawn!
 
+# Tutorial
 
-# Help Taken
-
-one of my friend is in hack club he teached me basics of how to make the design the platform (the city) and how can i make a specific place do a specific work, he's my best friend and lives in the distance of 100 meters than me so i usually go to his home (to do timepass) and one day i didn't had any idea and i was rewatching pokemon movie so i decided to make smth like it so the things mentioned above i didn't knew how to do it so he told me, he didn't helped me that much!!!!!, he's a very freaking practical mann he doesn't helps me 😭😭😭 he says than how will you learn i learned this all by myself nd blah blah blah.
-
-sorry adi if you read this
-anyways i don't care if you read this
-hahahahahahahahhahahahaah 😆😆😆😆😆😆
-
-
-# AI-USE
-
-no ai has been harmed in making this project cause i made this when i was at his home he was making his and i was making mine and he dosen't use AI if i use it he'll kill me for sure and infront of him AI naah no chance, i don't want my neck to be broken hell nawhh
+help taken from Chris Courses' "Pokémon Style JavaScript RPG" tutorial to make this project as it's my first big js game, and i wrote that in readme cause i don't want my hrs to deduct cause cause i need reimbursment for my flight tickets for horizons acana.
