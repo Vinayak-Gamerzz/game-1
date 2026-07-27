@@ -2,7 +2,7 @@
 
 <img width="1817" height="838" alt="image" src="https://github.com/user-attachments/assets/6a7dc73c-fa9b-471a-b167-baab6bb9b2dc" />
 
-<note - the extra black part is left intentionally cause i want to add smth special surprise there not gonna spill before it comes)
+<note - the extra black part is left intentionally cause i want to add smth special surprise there not gonna spill before it comes)>
 
 this is my first game this much big and this much things it is inspired by pokemon the character is Ash Ketchum from Pallet Town, the world accessible rn is Pallet World, if the grasss (there are 2 only) if you're lucky you can find a pokemon and have fight with it, you'll need to attack, you got 2 options in the fight to tackle, or to shoot, but in both cases your health cuts, tackle -10, fireball (shoot) -25, sometimes critical fireball -50, we have bar changing it's color according to health level, health level is measured in numbers too, you can see that which attack caused how much damage it will popup on the screen, at someplaces you can't go cause im working on trap there, like on the middle of road you can't go at a few places cause i have initially blocked it cause rn im making traps haahhahahaha, and will make it sull pokemon world, with pokedex, trading, pokemon catching, money,  more npcs, and pokemons, and it's my first big game so yeah ig it's coooollllllllllllllllllllllllllllllll!!!!!!!!!!!!, i just want to see that is this working with reviewers and if they like it so i'll continue further!
 
@@ -22,3 +22,12 @@ second pokemon spot
 
 <img width="1817" height="838" alt="image" src="https://github.com/user-attachments/assets/45c581c7-943e-44cc-96ce-6d34445026c8" />
 spawn!
+
+
+# Help Taken
+
+one of my friend is in hack club he teached me basics of how to make the design the platform (the city) and how can i make a specific place do a specific work, he's my best friend and lives in the distance of 100 meters than me so i usually go to his home (to do timepass) and one day i didn't had any idea and i was rewatching pokemon movie so i decided to make smth like it so the things mentioned above i didn't knew how to do it so he told me, he didn't helped me that much!!!!!, he's a very freaking practical mann he doesn't helps me 😭😭😭 he says than how will you learn i learned this all by myself nd blah blah blah.
+
+sorry adi if you read this
+anyways i don't care if you read this
+hahahahahahahahhahahahaah 😆😆😆😆😆😆
