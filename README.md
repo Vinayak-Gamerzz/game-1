@@ -31,3 +31,8 @@ one of my friend is in hack club he teached me basics of how to make the design 
 sorry adi if you read this
 anyways i don't care if you read this
 hahahahahahahahhahahahaah 😆😆😆😆😆😆
+
+
+# AI-USE
+
+no ai has been harmed in making this project cause i made this when i was at his home he was making his and i was making mine and he dosen't use AI if i use it he'll kill me for sure and infront of him AI naah no chance, i don't want my neck to be broken hell nawhh
